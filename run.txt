@@ -1,0 +1,80 @@
+@echo off
+FOR /L %%i IN (1,1,30) DO (
+   pcvcp --recombination=0.8 --mutation=0.05 --population_size=50 --tournament_size=2 --alg=memetic --instance=asymmetric/10.1
+)
+
+FOR /L %%i IN (1,1,30) DO (
+   pcvcp --recombination=0.8 --mutation=0.05 --population_size=50 --tournament_size=2 --alg=memetic_vns --instance=asymmetric/10.1
+)
+
+FOR /L %%i IN (1,1,30) DO (
+   pcvcp --recombination=0.8 --mutation=0.05 --population_size=50 --tournament_size=2 --alg=memetic_vnd --instance=asymmetric/10.1
+)
+
+FOR /L %%i IN (1,1,30) DO (
+   pcvcp --recombination=0.8 --mutation=0.05 --population_size=50 --tournament_size=2 --alg=memetic_vns_vnd --instance=asymmetric/10.1
+)
+
+FOR /L %%i IN (1,1,30) DO (
+   pcvcp --recombination=0.8 --mutation=0.05 --population_size=50 --tournament_size=2 --alg=memetic --instance=asymmetric/20.1
+)
+
+FOR /L %%i IN (1,1,30) DO (
+   pcvcp --recombination=0.8 --mutation=0.05 --population_size=50 --tournament_size=2 --alg=memetic_vns --instance=asymmetric/20.1
+)
+
+FOR /L %%i IN (1,1,30) DO (
+   pcvcp --recombination=0.8 --mutation=0.05 --population_size=50 --tournament_size=2 --alg=memetic_vnd --instance=asymmetric/20.1
+)
+
+FOR /L %%i IN (1,1,30) DO (
+   pcvcp --recombination=0.8 --mutation=0.05 --population_size=50 --tournament_size=2 --alg=memetic_vns_vnd --instance=asymmetric/20.1
+)
+
+FOR /L %%i IN (1,1,30) DO (
+   pcvcp --recombination=0.8 --mutation=0.05 --population_size=50 --tournament_size=2 --alg=memetic --instance=asymmetric/50.1
+)
+
+FOR /L %%i IN (1,1,30) DO (
+   pcvcp --recombination=0.8 --mutation=0.05 --population_size=50 --tournament_size=2 --alg=memetic_vns --instance=asymmetric/50.1
+)
+
+FOR /L %%i IN (1,1,30) DO (
+   pcvcp --recombination=0.8 --mutation=0.05 --population_size=50 --tournament_size=2 --alg=memetic_vnd --instance=asymmetric/50.1
+)
+
+FOR /L %%i IN (1,1,30) DO (
+   pcvcp --recombination=0.8 --mutation=0.05 --population_size=50 --tournament_size=2 --alg=memetic_vns_vnd --instance=asymmetric/50.1
+)
+
+FOR /L %%i IN (1,1,30) DO (
+   pcvcp --recombination=0.8 --mutation=0.05 --population_size=50 --tournament_size=2 --alg=memetic --instance=asymmetric/100.1
+)
+
+FOR /L %%i IN (1,1,30) DO (
+   pcvcp --recombination=0.8 --mutation=0.05 --population_size=50 --tournament_size=2 --alg=memetic_vns --instance=asymmetric/100.1
+)
+
+FOR /L %%i IN (1,1,30) DO (
+   pcvcp --recombination=0.8 --mutation=0.05 --population_size=50 --tournament_size=2 --alg=memetic_vnd --instance=asymmetric/100.1
+)
+
+FOR /L %%i IN (1,1,30) DO (
+   pcvcp --recombination=0.8 --mutation=0.05 --population_size=50 --tournament_size=2 --alg=memetic_vns_vnd --instance=asymmetric/100.1
+)
+
+FOR /L %%i IN (1,1,30) DO (
+   pcvcp --recombination=0.8 --mutation=0.05 --population_size=50 --tournament_size=2 --alg=memetic --instance=asymmetric/200.1
+)
+
+FOR /L %%i IN (1,1,30) DO (
+   pcvcp --recombination=0.8 --mutation=0.05 --population_size=50 --tournament_size=2 --alg=memetic_vns --instance=asymmetric/200.1
+)
+
+FOR /L %%i IN (1,1,30) DO (
+   pcvcp --recombination=0.8 --mutation=0.05 --population_size=50 --tournament_size=2 --alg=memetic_vnd --instance=asymmetric/200.1
+)
+
+FOR /L %%i IN (1,1,30) DO (
+   pcvcp --recombination=0.8 --mutation=0.05 --population_size=50 --tournament_size=2 --alg=memetic_vns_vnd --instance=asymmetric/200.1
+)
