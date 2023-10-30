@@ -224,5 +224,14 @@ int main(int argc, char *argv[])
 
     fclose(file_output);
 
+    // printf("\nroute_cost_calls: %d", route_cost_calls);
+    // printf("\nneighboor_1_calls: %d", neighboor_1_calls);
+    // printf("\nneighboor_2_calls: %d", neighboor_2_calls);
+    // printf("\nneighboor_3_calls: %d", neighboor_3_calls);
+    // printf("\nneighboor_4_calls: %d", neighboor_4_calls);
+    // printf("\nneighboor_5_calls: %d", neighboor_5_calls);
+    // printf("\nref_1_calls: %d", ref_1_calls);
+    // printf("\nref_2_calls: %d", ref_2_calls);
+    // printf("\nref_3_calls: %d", ref_3_calls);
     return 0;
 }

@@ -11,7 +11,7 @@
 #include "aux_functions.h"
 #include "algorithms.h"
 
-#define MAX_COST_CALLS 1000000
+#define MAX_COST_CALLS 10000000
 
 double RECOMBINATION_RATE;
 double MUTATION_RATE;
@@ -128,24 +128,31 @@ int *swap_2(int *route, int i, int k)
 
 int *swap_2_opt(int *route, int quota, Graph *graph)
 {
+    // ref_1_calls++;
+    if (route_cost_calls >= MAX_COST_CALLS)
+    {
+        return route;
+    }
+
     int route_len = get_route_length(route);
     int *new_route = (int *)malloc(route_len * sizeof(int));
 
     int *best_route = (int *)malloc(route_len * sizeof(int));
 
     int new_route_len, new_cost;
-    int no_improvement_count = 1000;
+
     bool improved = true;
-    int counter = 0;
 
     best_route = route;
     int best_route_len = get_route_length(best_route);
 
     int best_cost = route_cost(best_route, graph, best_route_len);
 
+    int no_improvement_count = 1000;
+    int counter = 0;
+
     while (improved && counter < no_improvement_count)
     {
-
         counter++;
         improved = false;
 
@@ -164,6 +171,10 @@ int *swap_2_opt(int *route, int quota, Graph *graph)
                     best_route_len = get_route_length(best_route);
                     improved = true;
                     counter = 0;
+                }
+                if (route_cost_calls > MAX_COST_CALLS)
+                {
+                    return best_route;
                 }
             }
         }
@@ -371,6 +382,8 @@ int *genetic_algorithm(Graph *graph, int quota)
 // Remove vértice com maior economia:
 int *neighboor_1(int *route, Graph *graph)
 {
+    // printf("\n1");
+    // neighboor_1_calls++;
     int *new_route = (int *)malloc(graph->size * sizeof(int));
 
     int route_len = get_route_length(route);
@@ -437,7 +450,8 @@ int *neighboor_1(int *route, Graph *graph)
 // Insere vértice com maior economia:
 int *neighboor_2(int *route, Graph *graph)
 {
-
+    // printf("\n2");
+    // neighboor_2_calls++;
     int *new_route = (int *)malloc(graph->size * sizeof(int));
 
     int route_len = get_route_length(route);
@@ -516,6 +530,8 @@ int *neighboor_2(int *route, Graph *graph)
 
 int *neighboor_3(int *route, Graph *graph)
 {
+    // printf("\n3");
+    // neighboor_3_calls++;
 
     int *new_route = (int *)malloc(graph->size * sizeof(int));
     int route_len = get_route_length(route);
@@ -533,6 +549,8 @@ int *neighboor_3(int *route, Graph *graph)
 // Remove vertice aleatorio:
 int *neighboor_4(int *route, Graph *graph)
 {
+    // printf("\n4");
+    // neighboor_4_calls++;
 
     int route_len = get_route_length(route);
 
@@ -550,6 +568,8 @@ int *neighboor_4(int *route, Graph *graph)
 // Insere vertice aleatorio:
 int *neighboor_5(int *route, Graph *graph)
 {
+    // printf("\n5");
+    // neighboor_5_calls++;
 
     int *new_route = (int *)malloc(graph->size * sizeof(int));
 
@@ -672,6 +692,7 @@ void drop_step(int *route, int quota, Graph *graph)
 
 int *add_drop(int *route, int quota, Graph *graph)
 {
+    // ref_2_calls++;
     int *new_route = (int *)malloc(graph->size * sizeof(int));
 
     int route_len = get_route_length(route);
@@ -686,6 +707,7 @@ int *add_drop(int *route, int quota, Graph *graph)
 
 int *drop_add(int *route, int quota, Graph *graph)
 {
+    // ref_3_calls++;
     int *new_route = (int *)malloc(graph->size * sizeof(int));
 
     int route_len = get_route_length(route);
@@ -699,6 +721,11 @@ int *drop_add(int *route, int quota, Graph *graph)
 
 int *vns(int *route, int quota, Graph *graph)
 {
+    if (route_cost_calls >= MAX_COST_CALLS)
+    {
+        return route;
+    }
+
     clock_t start_time, current_time;
     double no_improvement_time = 0.0;
     int max_time = 200;
@@ -765,6 +792,10 @@ int *vns(int *route, int quota, Graph *graph)
 
 int *vnd(int *route, int quota, Graph *graph)
 {
+    if (route_cost_calls >= MAX_COST_CALLS)
+    {
+        return route;
+    }
     int *best_route = route;
 
     int route_len = get_route_length(best_route);
@@ -807,6 +838,10 @@ int *vnd(int *route, int quota, Graph *graph)
 
 int *vns_vnd(int *route, int quota, Graph *graph)
 {
+    if (route_cost_calls >= MAX_COST_CALLS)
+    {
+        return route;
+    }
     clock_t start_time, current_time;
     double no_improvement_time = 0.0;
     int max_time = 200;
@@ -866,7 +901,6 @@ int *vns_vnd(int *route, int quota, Graph *graph)
 
         return best_route;
     }
-
     return best_route;
 }
 
@@ -966,7 +1000,6 @@ int *memetic_algorithm(Graph *graph, int quota)
     }
 
     route = population[0]->route;
-
     return route;
 }
 
@@ -1041,6 +1074,7 @@ int *memetic_vns_algorithm(Graph *graph, int quota)
             }
 
             new_route = vns(selected_child->route, quota, graph);
+            // printf("\nchildren_len: %d | route_cost_calls: %d | i: %d", children_len, route_cost_calls, i);
 
             new_chromo = create_chromo(new_route, graph);
 
@@ -1064,7 +1098,6 @@ int *memetic_vns_algorithm(Graph *graph, int quota)
     }
 
     route = population[0]->route;
-
     return route;
 }
 
@@ -1139,6 +1172,7 @@ int *memetic_vnd_algorithm(Graph *graph, int quota)
             }
 
             new_route = vnd(selected_child->route, quota, graph);
+            // printf("\nchildren_len: %d | route_cost_calls: %d | i: %d", children_len, route_cost_calls, i);
 
             new_chromo = create_chromo(new_route, graph);
 
@@ -1162,7 +1196,6 @@ int *memetic_vnd_algorithm(Graph *graph, int quota)
     }
 
     route = population[0]->route;
-
     return route;
 }
 
@@ -1260,7 +1293,6 @@ int *memetic_vns_vnd_algorithm(Graph *graph, int quota)
     }
 
     route = population[0]->route;
-
     return route;
 }
 
@@ -1337,7 +1369,8 @@ int *grasp_constructor(Graph *graph, int quota, float alpha_grasp)
         qsort(economies, economies_len, sizeof(int *), compare_tuples);
         best_economy = economies[0][1];
         worst_economy = economies[economies_len - 1][1];
-        tsh = best_economy - alpha_grasp * (best_economy - worst_economy);
+        // tsh = best_economy - alpha_grasp * (best_economy - worst_economy);
+        tsh = worst_economy + alpha_grasp * (best_economy - worst_economy);
         for (int i = 0; i < economies_len; i++)
         {
             if (economies[i][1] >= tsh)
@@ -1442,7 +1475,6 @@ int *grasp_vnd_algorithm(Graph *graph, int quota)
             best_route = route;
         }
     }
-
     return best_route;
 }
 
