@@ -11,7 +11,7 @@
 #include "aux_functions.h"
 #include "algorithms.h"
 
-#define MAX_COST_CALLS 10000000
+#define MAX_COST_CALLS 1000000
 
 double RECOMBINATION_RATE;
 double MUTATION_RATE;
@@ -148,12 +148,8 @@ int *swap_2_opt(int *route, int quota, Graph *graph)
 
     int best_cost = route_cost(best_route, graph, best_route_len);
 
-    int no_improvement_count = 1000;
-    int counter = 0;
-
-    while (improved && counter < no_improvement_count)
+    while (improved)
     {
-        counter++;
         improved = false;
 
         for (int i = 1; i < best_route_len - 1; i++)
@@ -170,7 +166,6 @@ int *swap_2_opt(int *route, int quota, Graph *graph)
                     best_route = new_route;
                     best_route_len = get_route_length(best_route);
                     improved = true;
-                    counter = 0;
                 }
                 if (route_cost_calls > MAX_COST_CALLS)
                 {
