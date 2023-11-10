@@ -736,11 +736,10 @@ int *vns(int *route, int quota, Graph *graph)
     FunctionPointer neighborhood_functions[] = {neighboor_1, neighboor_2, neighboor_3, neighboor_4, neighboor_5};
 
     int neighboors_len = sizeof(neighborhood_functions) / sizeof(FunctionPointer);
+    start_time = clock();
 
     while (no_improvement_time < max_time)
     {
-        start_time = clock();
-
         k = 0;
 
         while (k < neighboors_len)
@@ -764,6 +763,7 @@ int *vns(int *route, int quota, Graph *graph)
                 best_route = new_route;
                 route_len = get_route_length(best_route);
                 k = 0;
+                start_time = clock();
             }
             else
             {
