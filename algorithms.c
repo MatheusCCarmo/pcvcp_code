@@ -930,11 +930,10 @@ int *memetic_algorithm(Graph *graph, int quota)
     selected_child = (Chromo *)malloc(chromo_size);
     population = init_population(graph, population_size, quota);
 
-    int children_size = 3 * population_size;
+    int children_size = 2 * population_size;
     int new_population_size = children_size + population_size;
 
     children = (Chromo **)calloc(children_size, chromo_size);
-    crossover_children = (Chromo **)calloc(2, chromo_size);
     new_population = (Chromo **)calloc(new_population_size, chromo_size);
     while (route_cost_calls < MAX_COST_CALLS)
     {
@@ -956,24 +955,20 @@ int *memetic_algorithm(Graph *graph, int quota)
                 child_2 = parent_2;
             }
 
-            children[children_len++] = child_1;
-            children[children_len++] = child_2;
-
-            crossover_children[0] = child_1;
-            crossover_children[1] = child_2;
-
-            int random_i = rand() % 2;
-            selected_child = crossover_children[random_i];
+            random_number = ((double)rand() / (double)RAND_MAX);
 
             if (random_number < MUTATION_RATE)
             {
-                selected_child = mutation(selected_child, graph);
+                child_1 = mutation(child_1, graph);
+                child_2 = mutation(child_2, graph);
             }
 
-            new_route = swap_2_opt(selected_child->route, quota, graph);
-
+            new_route = swap_2_opt(child_1->route, quota, graph);
             new_chromo = create_chromo(new_route, graph);
+            children[children_len++] = new_chromo;
 
+            new_route = swap_2_opt(child_2->route, quota, graph);
+            new_chromo = create_chromo(new_route, graph);
             children[children_len++] = new_chromo;
         }
         for (int i = 0; i < population_size; i++)
@@ -1028,11 +1023,11 @@ int *memetic_vns_algorithm(Graph *graph, int quota)
     selected_child = (Chromo *)malloc(chromo_size);
     population = init_population(graph, population_size, quota);
 
-    int children_size = 3 * population_size;
+    int children_size = 2 * population_size;
     int new_population_size = children_size + population_size;
 
     children = (Chromo **)calloc(children_size, chromo_size);
-    crossover_children = (Chromo **)calloc(2, chromo_size);
+
     new_population = (Chromo **)calloc(new_population_size, chromo_size);
     while (route_cost_calls < MAX_COST_CALLS)
     {
@@ -1054,25 +1049,20 @@ int *memetic_vns_algorithm(Graph *graph, int quota)
                 child_2 = parent_2;
             }
 
-            children[children_len++] = child_1;
-            children[children_len++] = child_2;
-
-            crossover_children[0] = child_1;
-            crossover_children[1] = child_2;
-
-            int random_i = rand() % 2;
-            selected_child = crossover_children[random_i];
+            random_number = ((double)rand() / (double)RAND_MAX);
 
             if (random_number < MUTATION_RATE)
             {
-                selected_child = mutation(selected_child, graph);
+                child_1 = mutation(child_1, graph);
+                child_2 = mutation(child_2, graph);
             }
 
-            new_route = vns(selected_child->route, quota, graph);
-            // printf("\nchildren_len: %d | route_cost_calls: %d | i: %d", children_len, route_cost_calls, i);
-
+            new_route = vns(child_1->route, quota, graph);
             new_chromo = create_chromo(new_route, graph);
+            children[children_len++] = new_chromo;
 
+            new_route = vns(child_2->route, quota, graph);
+            new_chromo = create_chromo(new_route, graph);
             children[children_len++] = new_chromo;
         }
         for (int i = 0; i < population_size; i++)
@@ -1126,11 +1116,11 @@ int *memetic_vnd_algorithm(Graph *graph, int quota)
     selected_child = (Chromo *)malloc(chromo_size);
     population = init_population(graph, population_size, quota);
 
-    int children_size = 3 * population_size;
+    int children_size = 2 * population_size;
     int new_population_size = children_size + population_size;
 
     children = (Chromo **)calloc(children_size, chromo_size);
-    crossover_children = (Chromo **)calloc(2, chromo_size);
+
     new_population = (Chromo **)calloc(new_population_size, chromo_size);
     while (route_cost_calls < MAX_COST_CALLS)
     {
@@ -1152,27 +1142,23 @@ int *memetic_vnd_algorithm(Graph *graph, int quota)
                 child_2 = parent_2;
             }
 
-            children[children_len++] = child_1;
-            children[children_len++] = child_2;
-
-            crossover_children[0] = child_1;
-            crossover_children[1] = child_2;
-
-            int random_i = rand() % 2;
-            selected_child = crossover_children[random_i];
+            random_number = ((double)rand() / (double)RAND_MAX);
 
             if (random_number < MUTATION_RATE)
             {
-                selected_child = mutation(selected_child, graph);
+                child_1 = mutation(child_1, graph);
+                child_2 = mutation(child_2, graph);
             }
 
-            new_route = vnd(selected_child->route, quota, graph);
-            // printf("\nchildren_len: %d | route_cost_calls: %d | i: %d", children_len, route_cost_calls, i);
-
+            new_route = vnd(child_1->route, quota, graph);
             new_chromo = create_chromo(new_route, graph);
+            children[children_len++] = new_chromo;
 
+            new_route = vnd(child_2->route, quota, graph);
+            new_chromo = create_chromo(new_route, graph);
             children[children_len++] = new_chromo;
         }
+
         for (int i = 0; i < population_size; i++)
         {
             new_population[i] = population[i];
@@ -1224,11 +1210,11 @@ int *memetic_vns_vnd_algorithm(Graph *graph, int quota)
     selected_child = (Chromo *)malloc(chromo_size);
     population = init_population(graph, population_size, quota);
 
-    int children_size = 3 * population_size;
+    int children_size = 2 * population_size;
     int new_population_size = children_size + population_size;
 
     children = (Chromo **)calloc(children_size, chromo_size);
-    crossover_children = (Chromo **)calloc(children_size, chromo_size);
+
     new_population = (Chromo **)calloc(new_population_size, chromo_size);
     while (route_cost_calls < MAX_COST_CALLS)
     {
@@ -1250,24 +1236,20 @@ int *memetic_vns_vnd_algorithm(Graph *graph, int quota)
                 child_2 = parent_2;
             }
 
-            children[children_len++] = child_1;
-            children[children_len++] = child_2;
-
-            crossover_children[0] = child_1;
-            crossover_children[1] = child_2;
-
-            int random_i = rand() % 2;
-            selected_child = crossover_children[random_i];
+            random_number = ((double)rand() / (double)RAND_MAX);
 
             if (random_number < MUTATION_RATE)
             {
-                selected_child = mutation(selected_child, graph);
+                child_1 = mutation(child_1, graph);
+                child_2 = mutation(child_2, graph);
             }
 
-            new_route = vns_vnd(selected_child->route, quota, graph);
-
+            new_route = vns_vnd(child_1->route, quota, graph);
             new_chromo = create_chromo(new_route, graph);
+            children[children_len++] = new_chromo;
 
+            new_route = vns_vnd(child_2->route, quota, graph);
+            new_chromo = create_chromo(new_route, graph);
             children[children_len++] = new_chromo;
         }
         for (int i = 0; i < population_size; i++)
