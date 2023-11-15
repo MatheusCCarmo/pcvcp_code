@@ -1346,8 +1346,7 @@ int *grasp_constructor(Graph *graph, int quota, float alpha_grasp)
         qsort(economies, economies_len, sizeof(int *), compare_tuples);
         best_economy = economies[0][1];
         worst_economy = economies[economies_len - 1][1];
-        // tsh = best_economy - alpha_grasp * (best_economy - worst_economy);
-        tsh = worst_economy + alpha_grasp * (best_economy - worst_economy);
+        tsh = best_economy - alpha_grasp * (best_economy - worst_economy);
         for (int i = 0; i < economies_len; i++)
         {
             if (economies[i][1] >= tsh)
